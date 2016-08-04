@@ -5,6 +5,10 @@ html, body {
     font-size: 12px;
 }
 
+#app {
+    text-align: center;
+}
+
 .media-element-container {
     max-width: 680px;
     margin: 100px auto 0;

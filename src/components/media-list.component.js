@@ -8,29 +8,35 @@ export class MediaListComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mediaLoaded: false,
-            mediaLink: null
+            loading: !!props.source,
+            mediaSource: null
         };
     }
 
     componentDidMount() {
-        new MediaService(this.props.source)
-            .fetch()
-            .then((blob) => {
-                this.setState({
-                    mediaLoaded: true,
-                    mediaSource: blob
+        let source = this.props.source;
+        if (source) {
+            new MediaService(source)
+                .fetch()
+                .then((blob) => {
+                    this.setState({
+                        loading: false,
+                        mediaSource: blob
+                    });
+                }, (error) => {
+                    alert(error);
                 });
-            }, (error) => {
-                alert(error);
-            });
+        }
     }
 
     render() {
+        let content = this.state.mediaSource ? <MediaElement mediaSource={this.state.mediaSource}/> :
+            <h3>No source parameter given :(</h3>;
+
         return (
             <div>
-                <Loader loaded={this.state.mediaLoaded}>
-                    <MediaElement mediaSource={this.state.mediaSource}/>
+                <Loader loaded={!this.state.loading}>
+                    {content}
                 </Loader>
             </div>
         );
