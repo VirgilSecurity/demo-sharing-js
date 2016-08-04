@@ -10,7 +10,11 @@ html, body {
 }
 
 .media-element-container {
-    max-width: 680px;
     margin: 100px auto 0;
     text-align: center;
+}
+
+.media-element-container img {
+    max-width: 100%;
+    height: auto;
 }
