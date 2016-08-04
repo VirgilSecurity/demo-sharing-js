@@ -1,0 +1,5 @@
+{
+  "privateKeyPassword": "1234",
+  "recipientId": "secure_sharing",
+  "privateKey": ["-----BEGIN ENCRYPTED PRIVATE KEY-----", "MIHyMF0GCSqGSIb3DQEFDTBQMC8GCSqGSIb3DQEFDDAiBBBwEt7Rw1wR5Z7/rqnn", "pCFzAgIWPzAKBggqhkiG9w0CCjAdBglghkgBZQMEASoEEON2ALc5K9xrQm+C14/a", "z+kEgZBJodpmzGWqF5Z7EuhZCRUE31WppsetFxv04HkMVXMmOO7ghtQq52xfvuAI", "nv/K4sVMzgyX9kC6S4odpamFx3k32PuYl/GKiV6e8eAhUKbEitPGRGzwvxkxHWCn", "LhHs7LMtZJkobR04JB2IxuPPYawq0IEo9o/7Bugkce1WBVOKo/v7/+p8BFbpZzTB", "fAsw/vs=", "-----END ENCRYPTED PRIVATE KEY-----"]
+}

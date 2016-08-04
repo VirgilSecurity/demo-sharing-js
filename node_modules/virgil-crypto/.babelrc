@@ -1,0 +1,10 @@
+{
+  "stage": 1, // Stage 1 - Proposal
+  "externalHelpers": true,
+  "modules": "common",
+  "optional": [
+    // Stage 0 - Strawman
+    "es7.classProperties",
+    "es7.functionBind"
+  ]
+}

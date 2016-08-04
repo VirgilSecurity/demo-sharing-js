@@ -1,0 +1,12 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: Helevetica Neue, sans-serif;
+    font-size: 12px;
+}
+
+.media-element-container {
+    max-width: 680px;
+    margin: 100px auto 0;
+    text-align: center;
+}
