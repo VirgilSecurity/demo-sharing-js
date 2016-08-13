@@ -14,7 +14,19 @@ html, body {
     text-align: center;
 }
 
-.media-element-container img {
+.media-element-container img, .media-element-container video {
     max-width: 50%;
     height: auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.progress-message {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate3d(-50%, 100%, 0);
+    font-size: 14px;
 }

@@ -1,5 +1,8 @@
 import Promise from 'bluebird';
-import {VirgilCrypto} from 'virgil-crypto';
+import { Buffer } from 'buffer';
+
+import {decryptAsync} from './crypto/virgil-crypto';
+import * as CryptoUtils from './crypto/utils/crypto-utils';
 
 export class MediaService {
     constructor(source) {
@@ -8,12 +11,25 @@ export class MediaService {
         this.url = info.url;
     }
 
-    fetch() {
+    fetch(progressCallback) {
         const req = new XMLHttpRequest();
         return new Promise((resolve, reject) => {
-            req.onload = () => resolve(this.decryptResponse(req.response));//.then(resolve);
+            req.onload = () => {
+                progressCallback('Decrypting...');
+                this.decryptResponse(req.response)
+                    .then((decryptedData) => resolve(decryptedData))
+                    .catch((err) => reject(err));
+            };
             req.onerror = () => reject(new Error('Failed to load data.'));
             req.onabort = () => reject('aborted');
+            req.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    let percent = (event.loaded / event.total) * 100;
+                    progressCallback(`Loading ${percent.toFixed(0)}%`);
+                } else {
+                    progressCallback('Loading...');
+                }
+            };
 
             req.open('GET', this.url);
             req.responseType = 'arraybuffer';
@@ -23,9 +39,9 @@ export class MediaService {
     }
 
     decryptResponse(data) {
-        let privateKey = CONFIG.privateKey.join('\n');
-        let buffer = new VirgilCrypto.Buffer(data);
-        let decryptedData = VirgilCrypto.decrypt(buffer, CONFIG.recipientId, privateKey, CONFIG.privateKeyPassword);
-        return new Blob([decryptedData.buffer], { type: this.type });
+        let privateKey = CryptoUtils.base64ToBuffer(CONFIG.privateKey).toString('utf8');
+        let buffer = new Buffer(data);
+        return decryptAsync(buffer, CONFIG.recipientId, privateKey, CONFIG.privateKeyPassword)
+            .then((decryptedData) => new Blob([decryptedData.buffer], { type: this.type }));
     }
 }

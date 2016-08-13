@@ -21,7 +21,7 @@ export class MediaElement extends React.Component {
         } else if (/^video\/.*/.test(mediaSource.type)) {
             mediaElement = <video src={url} type={mediaSource.type} controls/>;
         } else {
-            mediaElement = <div>Unsupported media :(</div>
+            mediaElement = <h3>Unsupported media :(</h3>
         }
         return (
             <div className={'media-element-container'}>

@@ -18,7 +18,7 @@ module.exports = {
             {
                 // pre-process every *.js file (except for ones in node_modules/) with Babel
                 test: /\.js$/,
-                exclude: /node_modules/,
+                exclude: [ /node_modules/, /lib/, /worker-crypto-context.js/, /worker-crypto-helpers.js/ ],
                 loaders: [
                     'react-hot-loader',
                     'babel-loader?cacheDirectory&presets[]=react&presets[]=es2015'
