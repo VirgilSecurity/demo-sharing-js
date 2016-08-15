@@ -3,6 +3,8 @@ html, body {
     height: 100%;
     font-family: Helevetica Neue, sans-serif;
     font-size: 12px;
+    margin: 0;
+    padding: 0;
 }
 
 #app {
@@ -10,8 +12,9 @@ html, body {
 }
 
 .media-element-container {
-    margin: 100px auto 0;
+    margin: 0 auto;
     text-align: center;
+    padding-top: 100px;
 }
 
 .media-element-container img, .media-element-container video {
