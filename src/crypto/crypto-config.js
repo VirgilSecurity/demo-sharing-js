@@ -1,5 +1,5 @@
 window.Module = {
-    TOTAL_MEMORY: 1024 * 1024 * 1024 // 1GB
+    TOTAL_MEMORY: 1024 * 1024 * 768 // 768Mb
 };
 window.Module.onRuntimeInitialized = function () {};
 

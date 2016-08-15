@@ -18,7 +18,6 @@ export function decrypt(encryptedData, recipientId, privateKey, privateKeyPasswo
         cipher.decryptWithKey(dataSource, decryptedSink, recipientIdByteArray, privateKeyByteArray, privateKeyPasswordByteArray);
         decryptedDataBuffer = decryptedSink.getBytes();
     } catch(e) {
-        console.log(e);
         throw new Error('Could not decrypt the given data');
     } finally {
         cipher.delete();
