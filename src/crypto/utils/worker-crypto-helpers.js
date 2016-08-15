@@ -1,6 +1,6 @@
 Module['VirgilByteArray']['fromUint8Array'] = function(uint8Array) {
     var byteArray = new Module.VirgilByteArray;
-    byteArray.assign(new Uint8Array(uint8Array));
+    byteArray.assign(uint8Array);
     return byteArray;
 };
 
@@ -15,31 +15,12 @@ Module['VirgilByteArray']['prototype']['toUint8Array'] = function() {
     return array;
 };
 
-Module['concatUint8Arrays'] = function(arrays) {
-    var totalLength = 0;
-    var offset = 0;
-    var result;
-
-    arrays.forEach(function (arr) {
-        totalLength += arr.length;
-    });
-
-    result = new Uint8Array(totalLength);
-
-    arrays.forEach(function (arr) {
-        result.set(arr, offset);
-        offset += arr.length;
-    });
-
-    return result;
-};
-
-Module['VirgilTypedArrayDataSource'] = Module.VirgilDataSource.extend("VirgilDataSource", {
-    __construct: function(arrayBuffer) {
+Module['VirgilByteArrayDataSource'] = Module.VirgilDataSource.extend("VirgilDataSource", {
+    __construct: function(uint8Array) {
         this.__parent.__construct.call(this);
         this.position = 0;
         this.chunkSize = 1024 * 1024; // 1MB
-        this.bytes = new Uint8Array(arrayBuffer);
+        this.bytes = uint8Array;
     },
     hasData: function() {
         return this.position < this.bytes.length;
@@ -62,7 +43,7 @@ Module['VirgilTypedArrayDataSource'] = Module.VirgilDataSource.extend("VirgilDat
     }
 });
 
-Module['VirgilTypedArrayDataSink'] = Module.VirgilDataSink.extend("VirgilDataSink", {
+Module['VirgilByteArrayDataSink'] = Module.VirgilDataSink.extend("VirgilDataSink", {
     __construct: function() {
         this.__parent.__construct.call(this);
         this.bytes = new Uint8Array(0);
@@ -72,13 +53,19 @@ Module['VirgilTypedArrayDataSink'] = Module.VirgilDataSink.extend("VirgilDataSin
     },
     write: function(bytes) {
         var chunk = bytes.toUint8Array();
-        this.bytes = Module.concatUint8Arrays([this.bytes, chunk]);
-        var sizeInMb = Math.ceil(this.bytes.length / 1024 / 1024);
-        if (sizeInMb % 10 === 0) {
-            console.log('Written ' + sizeInMb + 'MB');
-        }
+        this._append(chunk);
     },
     getBytes: function () {
         return this.bytes;
+    },
+    _append: function (uint8Array) {
+        var result;
+        var totalLength = this.bytes.length + uint8Array.length;
+
+        result = new Uint8Array(totalLength);
+        result.set(this.bytes, 0);
+        result.set(uint8Array, this.bytes.length);
+
+        this.bytes = result;
     }
 });

@@ -23,7 +23,18 @@ export class MediaListComponent extends React.Component {
             });
         };
         if (source) {
-            new MediaService(source)
+            let service;
+            try {
+                service = new MediaService(source);
+            } catch(err) {
+                this.setState({
+                    loading: false,
+                    progress: '',
+                    error: err.message
+                });
+                return;
+            }
+            service
                 .fetch(reportProgress)
                 .then((blob) => {
                     this.setState({
@@ -32,13 +43,18 @@ export class MediaListComponent extends React.Component {
                         mediaSource: blob
                     });
                 }, (error) => {
-                    alert(error);
+                    this.setState({
+                        loading: false,
+                        progress: '',
+                        error: error.message
+                    });
                 });
         }
     }
 
     render() {
         let content = this.state.loading ? <Spinner /> :
+                      this.state.error ? <h3>{this.state.error}</h3> :
                       this.state.mediaSource ? <MediaElement mediaSource={this.state.mediaSource}/> :
                                                <h3>No source parameter given :(</h3>;
         let progressCssClass = `progress-message ${this.state.loading ? '' : 'hidden'}`;

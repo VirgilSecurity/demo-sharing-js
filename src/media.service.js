@@ -6,7 +6,12 @@ import * as CryptoUtils from './crypto/utils/crypto-utils';
 
 export class MediaService {
     constructor(source) {
-        let info = JSON.parse(window.atob(source));
+        let info;
+        try {
+            info = JSON.parse(window.atob(source));
+        } catch(e) {
+            throw new Error('Source parameter is invalid.');
+        }
         this.type = info.type;
         this.url = info.url;
     }
