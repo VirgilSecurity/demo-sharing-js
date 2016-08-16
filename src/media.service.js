@@ -2,7 +2,6 @@ import Promise from 'bluebird';
 import { Buffer } from 'buffer';
 
 import {decryptAsync} from './crypto/virgil-crypto';
-import * as CryptoUtils from './crypto/utils/crypto-utils';
 
 export class MediaService {
     constructor(source) {
@@ -44,9 +43,7 @@ export class MediaService {
     }
 
     decryptResponse(data) {
-        let privateKey = CryptoUtils.base64ToBuffer(CONFIG.privateKey).toString('utf8');
-        let buffer = new Buffer(data);
-        return decryptAsync(buffer, CONFIG.recipientId, privateKey, CONFIG.privateKeyPassword)
+        return decryptAsync(data, CONFIG.recipientId, CONFIG.privateKey, CONFIG.privateKeyPassword)
             .then((decryptedData) => new Blob([decryptedData.buffer], { type: this.type }));
     }
 }

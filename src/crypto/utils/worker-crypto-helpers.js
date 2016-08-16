@@ -15,11 +15,11 @@ Module['VirgilByteArray']['prototype']['toUint8Array'] = function() {
     return array;
 };
 
-Module['VirgilByteArrayDataSource'] = Module.VirgilDataSource.extend("VirgilDataSource", {
-    __construct: function(uint8Array) {
+Module['VirgilStreamDataSource'] = Module.VirgilDataSource.extend("VirgilDataSource", {
+    __construct: function(uint8Array, chunkSize) {
         this.__parent.__construct.call(this);
         this.position = 0;
-        this.chunkSize = 1024 * 1024; // 1MB
+        this.chunkSize = chunkSize || 1024 * 1024; // 1MB by default
         this.bytes = uint8Array;
     },
     hasData: function() {
@@ -43,7 +43,7 @@ Module['VirgilByteArrayDataSource'] = Module.VirgilDataSource.extend("VirgilData
     }
 });
 
-Module['VirgilByteArrayDataSink'] = Module.VirgilDataSink.extend("VirgilDataSink", {
+Module['VirgilStreamDataSink'] = Module.VirgilDataSink.extend("VirgilDataSink", {
     __construct: function() {
         this.__parent.__construct.call(this);
         this.bytes = new Uint8Array(0);
