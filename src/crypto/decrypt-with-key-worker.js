@@ -24,7 +24,7 @@ export function decryptWithKeyWorker (encryptedData, recipientId, privateKeyBase
 
         deferred.resolve(decryptedDataUInt8Array);
     } catch (e) {
-        deferred.reject(e);
+        deferred.reject(e.message);
     } finally {
         virgilCipher.delete();
     }
