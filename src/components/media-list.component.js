@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from 'react-spin';
 
-import {MediaService} from '../media.service';
+import {MediaResource} from '../media.resource';
 import {MediaElement} from './media-element.component';
 
 export class MediaListComponent extends React.Component {
@@ -15,41 +15,41 @@ export class MediaListComponent extends React.Component {
     }
 
     componentDidMount() {
-        let source = this.props.source;
+        let info;
         let reportProgress = (progress) => {
             this.setState({
                 progress: progress,
                 loading: true
             });
         };
-        if (source) {
-            let service;
-            try {
-                service = new MediaService(source);
-            } catch(err) {
+
+        try {
+            info = JSON.parse(window.atob(this.props.source));
+        } catch(e) {
+            this.setState({
+                loading: false,
+                progress: '',
+                error: e.message
+            });
+            return;
+        }
+
+        let service = new MediaResource(info);
+        service
+            .fetchAndDecrypt(reportProgress)
+            .then((blob) => {
                 this.setState({
                     loading: false,
                     progress: '',
-                    error: err.message
+                    mediaSource: blob
                 });
-                return;
-            }
-            service
-                .fetch(reportProgress)
-                .then((blob) => {
-                    this.setState({
-                        loading: false,
-                        progress: '',
-                        mediaSource: blob
-                    });
-                }, (error) => {
-                    this.setState({
-                        loading: false,
-                        progress: '',
-                        error: error.message
-                    });
+            }, (error) => {
+                this.setState({
+                    loading: false,
+                    progress: '',
+                    error: error.message
                 });
-        }
+            });
     }
 
     render() {

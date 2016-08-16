@@ -1,6 +1,14 @@
 var path = require('path');
 var webpack = require('webpack');
-var commonPlugins = [ new webpack.DefinePlugin({ CONFIG: JSON.stringify(require('./config/config.json')) }) ];
+var commonPlugins = [
+    new webpack.DefinePlugin({
+        CONFIG: JSON.stringify({
+            privateKey: process.env.PRIVATE_KEY,
+            privateKeyPassword: process.env.PRIVATE_KEY_PASSWORD,
+            recipientId: process.env.RECIPIENT_ID
+        })
+    })
+];
 var prodPlugins = [
     new webpack.DefinePlugin({
         'process.env':{

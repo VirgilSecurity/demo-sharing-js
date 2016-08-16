@@ -1,21 +1,27 @@
 import Promise from 'bluebird';
-import { Buffer } from 'buffer';
 
 import {decryptAsync} from './crypto/virgil-crypto';
 
-export class MediaService {
+/** Class representing a media resource. */
+export class MediaResource {
+
+    /**
+     * Create a media resource.
+     * @param {object} source - Object representing media's metadata
+     *                          such as download url.
+     * */
     constructor(source) {
-        let info;
-        try {
-            info = JSON.parse(window.atob(source));
-        } catch(e) {
-            throw new Error('Source parameter is invalid.');
-        }
-        this.type = info.type;
-        this.url = info.url;
+        this.type = source.type;
+        this.url = source.url;
     }
 
-    fetch(progressCallback) {
+    /**
+     * Fetch and decrypt the media.
+     *
+     * @param {function} progressCallback - A function to call to report
+     *                                      the execution progress.
+     * */
+    fetchAndDecrypt(progressCallback) {
         const req = new XMLHttpRequest();
         return new Promise((resolve, reject) => {
             req.onload = () => {
