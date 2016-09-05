@@ -24,7 +24,7 @@ export class MediaListComponent extends React.Component {
         };
 
         try {
-            info = JSON.parse(window.atob(this.props.source));
+            info = this.validateInfo(this.parseSource(this.props.source));
         } catch(e) {
             this.setState({
                 loading: false,
@@ -67,5 +67,34 @@ export class MediaListComponent extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    parseSource(source) {
+        if (!source) {
+            throw new Error('No source parameter given.');
+        }
+        let info;
+        try {
+            info = JSON.parse(window.atob(source));
+        } catch(e) {
+            throw new Error('Source parameter must be a base64-encoded JSON string.');
+        }
+        return info;
+    }
+
+    validateInfo(info) {
+        let errors = [];
+        if (typeof info.type === 'undefined') {
+            errors.push('Source object must have a "type" property with an encrypted file\'s MIME-type');
+        }
+        if (typeof info.url === 'undefined') {
+            errors.push('Source object must have a "url" property with an encrypted file\'s url');
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join('\n'));
+        }
+
+        return info;
     }
 }
