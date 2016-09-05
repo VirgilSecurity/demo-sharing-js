@@ -72,6 +72,6 @@ Due to the use of [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) 
 In browsers where size of `Blob` is not restricted it is not guaranteed that files over ~700Mb will be successfully decrypted due to memory limitations.
  
 ## Live demo
-- [Video](https://virgil-crypto-sharing.herokuapp.com/?source=eyJ0eXBlIjoidmlkZW8vbXA0IiwidXJsIjoiaHR0cHM6Ly9kb3dubG9hZHMudmlyZ2lsc2VjdXJpdHkuY29tL2RlbW9maWxlcy9lbmNyeXB0ZWRfdmlkZW8zIn0=)
-- [Audio](https://virgil-crypto-sharing.herokuapp.com/?source=eyJ0eXBlIjoiYXVkaW8vbXBlZyIsInVybCI6Imh0dHBzOi8vZG93bmxvYWRzLnZpcmdpbHNlY3VyaXR5LmNvbS9kZW1vZmlsZXMvZW5jcnlwdGVkX2F1ZGlvIn0=)
-- [Image](https://virgil-crypto-sharing.herokuapp.com/?source=eyJ0eXBlIjoiaW1hZ2UvanBlZyIsInVybCI6Imh0dHBzOi8vZG93bmxvYWRzLnZpcmdpbHNlY3VyaXR5LmNvbS9kZW1vZmlsZXMvZW5jcnlwdGVkX2ltZyJ9)
+- [Video](https://virgil-crypto-sharing.herokuapp.com/?source=eyJ0eXBlIjoidmlkZW8vbXA0IiwidXJsIjoiaHR0cHM6Ly9kb3dubG9hZHMudmlyZ2lsc2VjdXJpdHkuY29tL2RlbW9maWxlcy92aWRlby5tcDQuZW5jIn0=)
+- [Audio](https://virgil-crypto-sharing.herokuapp.com/?source=eyJ0eXBlIjoiYXVkaW8vbXBlZyIsInVybCI6Imh0dHBzOi8vZG93bmxvYWRzLnZpcmdpbHNlY3VyaXR5LmNvbS9kZW1vZmlsZXMvYXVkaW8ubXAzLmVuYyJ9)
+- [Image](https://virgil-crypto-sharing.herokuapp.com/?source=eyJ0eXBlIjoiaW1hZ2UvanBlZyIsInVybCI6Imh0dHBzOi8vZG93bmxvYWRzLnZpcmdpbHNlY3VyaXR5LmNvbS9kZW1vZmlsZXMvaW1hZ2UuanBnLmVuYyJ9)
