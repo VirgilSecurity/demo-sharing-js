@@ -37,8 +37,8 @@ In order for decrypted media files to be opened accordingly to their type you mu
 it's download url. You do that by creating a JSON object with two properties "type" and "url":
 ```
 {
-	type: "video/mp4",
-	url: "https://example.com/encrypted_video"
+	"type": "video/mp4",
+	"url": "https://example.com/encrypted_video"
 }
 ```
 
