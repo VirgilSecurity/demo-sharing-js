@@ -7,7 +7,7 @@ from a browser.
 
 ### Clone the repository
 ```
-$ git clone https://github.com/VirgilSecurity/virgil-secure-sharing.git
+$ git clone https://github.com/VirgilSecurity/demo-sharing-js.git
 $ cd ./secure-sharing
 ```
 
